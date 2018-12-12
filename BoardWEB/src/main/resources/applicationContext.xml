@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+	<!-- 즉시 로딩 방식 : 구동되는 시점에 bean 객체 생성 -->
+	<context:component-scan base-package="com.springbook.biz" />
+	<context:property-placeholder location="classpath:config/databases.properties"/>
+	<bean id="userSerivce" class="com.springbook.biz.user.impl.UserServiceImpl">
+		<property name="userDAO" ref="userDAO" />
+	</bean>
+	<bean id="userDAO" class="com.springbook.biz.user.impl.UserDAO" />
+
+	<bean id="datSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean>
+
+	<!-- AOP 기본 -->
+	 <aop:aspectj-autoproxy></aop:aspectj-autoproxy> 
+	<!-- AOP xml작업 -->
+	<!-- <bean id="log" class="com.springbook.biz.common.Log4jAdvice"></bean> 
+		<bean id="afterReturning" class="com.springbook.biz.common.AfterReturningAdvice" 
+		/> <bean id="afterThrowing" class="com.springbook.biz.common.AfterThrowingAdvice" 
+		/> <bean id="after" class="com.springbook.biz.common.AfterAdvice" /> <bean 
+		id="around" class="com.springbook.biz.common.AroundAdvice" /> <bean id="before" 
+		class="com.springbook.biz.common.BeforeAdvice" /> <aop:config> <aop:pointcut 
+		expression="execution(* com.springbook.biz..*Impl.*(..))" id="allPointcut" 
+		/> <aop:pointcut expression="execution(* com.springbook.biz..*Impl.get*(..))" 
+		id="getPointcut" /> <aop:aspect ref="afterThrowing"> <aop:after-throwing 
+		method="exceptionLog" throwing="exceptObj" pointcut-ref="allPointcut" /> 
+		</aop:aspect> <aop:aspect ref="after"> <aop:after method="afterLog" pointcut-ref="allPointcut" 
+		/> </aop:aspect> <aop:aspect ref="afterReturning"> <aop:after-returning method="afterReturningLog" 
+		pointcut-ref="allPointcut" returning="returnObj" /> </aop:aspect> </aop:config> -->
+	<!-- <context:component-scan base-package="polymorphism"/> <bean id="apple" 
+		class="polymorphism.AppleSpeaker"/> -->
+	<!-- init과 destroy로 bean객체의 생명주기 알기 쉽다. -->
+	<!-- 생성자 주입방식 <bean id="tv" class="SamsungTV" init-method="initMethod" destroy-method="destroyMethod" 
+		lazy-init="true" scope="singleton"> <constructor-arg index="0" ref="sony"></constructor-arg> 
+		<constructor-arg index="1" value="2700000"></constructor-arg> </bean> -->
+	<!-- Setter 주입 방식 <bean id="tv" class="SamsungTV"> <property name="speaker" 
+		ref="apple"></property> <property name="price" value="2700000"></property> 
+		</bean> -->
+	<!-- p 네임스페이스 활용 <bean id="tv" class="polymorphism.SamsungTV" p:speaker-ref="sony" 
+		p:price="2700000"/> <bean id="sony" class="polymorphism.SonySpeaker"/> <bean 
+		id="apple" class="polymorphism.AppleSpeaker"/> -->
+	<!-- <bean id="collectionBean" class="com.springbook.ioc.injection.CollectionBean"> 
+		<property name="addressList"> <list> <value>서울시 강남구 역삼동</value> <value>서울시 
+		성동구 행당동</value> </list> </property> </bean> -->
+	<!-- <bean id="collectionBean2" class="com.springbook.ioc.injection.CollectionBean"> 
+		<property name="addressList"> <map> <entry> <key><value>고길동</value></key> 
+		<value>서울시 강남구 역삼동</value> </entry> <entry> <key><value>마이콜</value></key> 
+		<value>서울시 성동구 행당동</value> </entry> </map> </property> </bean> -->
+</beans>
