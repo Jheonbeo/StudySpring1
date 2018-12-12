@@ -11,7 +11,7 @@ import com.springbook.biz.board.BoardVO;
 @Service("boardSerivce")
 public class BoardSeriveImpl implements BoardService {
 	@Autowired
-	private BoardDAO boardDAO;
+	private BoardDAOSpring2 boardDAO;
 	
 	public BoardSeriveImpl() {
 	}
@@ -19,9 +19,9 @@ public class BoardSeriveImpl implements BoardService {
 	@Override
 	public void insertBoard(BoardVO vo) {
 		// TODO Auto-generated method stub
-		if(vo.getSeq()==0){
+		/*if(vo.getSeq()==0){
 			throw new IllegalArgumentException("0번 글은 등록할 수 없습니다.");
-		}
+		}*/
 		boardDAO.insertBoard(vo);
 	}
 

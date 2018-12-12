@@ -8,13 +8,14 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 	<!-- 즉시 로딩 방식 : 구동되는 시점에 bean 객체 생성 -->
 	<context:component-scan base-package="com.springbook.biz" />
-	<context:property-placeholder location="classpath:config/databases.properties"/>
+	<context:property-placeholder location="classpath:config/databases.properties" />
 	<bean id="userSerivce" class="com.springbook.biz.user.impl.UserServiceImpl">
 		<property name="userDAO" ref="userDAO" />
 	</bean>
 	<bean id="userDAO" class="com.springbook.biz.user.impl.UserDAO" />
 
-	<bean id="datSource" class="org.apache.commons.dbcp.BasicDataSource"
+	<!-- DataSource 설정 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="${jdbc.driver}" />
 		<property name="url" value="${jdbc.url}" />
@@ -22,8 +23,12 @@
 		<property name="password" value="${jdbc.password}" />
 	</bean>
 
+	<!-- Spring JDBC 설정 -->
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
 	<!-- AOP 기본 -->
-	 <aop:aspectj-autoproxy></aop:aspectj-autoproxy> 
+	<!-- <aop:aspectj-autoproxy></aop:aspectj-autoproxy> -->
 	<!-- AOP xml작업 -->
 	<!-- <bean id="log" class="com.springbook.biz.common.Log4jAdvice"></bean> 
 		<bean id="afterReturning" class="com.springbook.biz.common.AfterReturningAdvice" 
