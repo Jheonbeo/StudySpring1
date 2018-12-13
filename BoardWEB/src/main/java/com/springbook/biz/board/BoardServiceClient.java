@@ -1,4 +1,4 @@
-package com.springbook.biz.board;
+	package com.springbook.biz.board;
 
 import java.util.List;
 
@@ -14,6 +14,7 @@ public class BoardServiceClient {
 		
 		//vo 객체는 presentation -> biz -> persist 3Layer 모두 왔다갔다 해서 data transfer object의 의미인것 DTO 
 		BoardVO vo = new BoardVO();
+		vo.setSeq(100);
 		vo.setTitle("임시 제목");
 		vo.setWriter("홍길동");
 		vo.setContent("임시 내용..");

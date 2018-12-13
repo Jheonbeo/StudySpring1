@@ -52,7 +52,7 @@ public class BoardDAOSpring extends JdbcDaoSupport {
 		return getJdbcTemplate().query(BOARD_LIST, new BoardRowMapper());
 	}
 }
-/*
+
 class BoardRowMapper implements RowMapper<BoardVO> {
 	public BoardVO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		BoardVO board = new BoardVO();
@@ -65,4 +65,3 @@ class BoardRowMapper implements RowMapper<BoardVO> {
 		return board;
 	}
 }
-*/

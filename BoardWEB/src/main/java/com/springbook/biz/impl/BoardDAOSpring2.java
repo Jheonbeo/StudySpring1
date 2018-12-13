@@ -16,7 +16,7 @@ public class BoardDAOSpring2 {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
-	private final String BOARD_INSERT = "insert into board(seq,title,writer,content) values((select nvl(max(seq),0)+1 from board),?,?,?)";
+	private final String BOARD_INSERT = "insert into board(seq,title,writer,content) values(?,?,?,?)";
 	private final String BOARD_UPDATE = "update board set title=?,content=? where seq=?";
 	private final String BOARD_DELETE = "delete board where seq=?";
 	private final String BOARD_GET = "select * from board where seq=?";
@@ -24,7 +24,8 @@ public class BoardDAOSpring2 {
 
 	public void insertBoard(BoardVO vo) {
 		System.out.println("===> Spring JDBC로 insertBoard() 기능 처리");
-		jdbcTemplate.update(BOARD_INSERT, vo.getTitle(), vo.getWriter(), vo.getContent());
+		//jdbcTemplate.update(BOARD_INSERT, vo.getTitle(), vo.getWriter(), vo.getContent());
+		jdbcTemplate.update(BOARD_INSERT, vo.getSeq(), vo.getTitle(), vo.getWriter(), vo.getContent());
 	}
 
 	public void updateBoard(BoardVO vo) {
@@ -48,7 +49,7 @@ public class BoardDAOSpring2 {
 		return jdbcTemplate.query(BOARD_LIST, new BoardRowMapper());
 	}
 }
-
+/*
 class BoardRowMapper implements RowMapper<BoardVO> {
 	public BoardVO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		BoardVO board = new BoardVO();
@@ -61,3 +62,4 @@ class BoardRowMapper implements RowMapper<BoardVO> {
 		return board;
 	}
 }
+*/
