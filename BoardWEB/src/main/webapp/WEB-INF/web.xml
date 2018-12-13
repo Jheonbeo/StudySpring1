@@ -4,13 +4,13 @@
     <description></description>
     <display-name>action</display-name>
     <servlet-name>action</servlet-name>
-    <servlet-class>com.springbook.view.controller.DispatcherServlet</servlet-class>
+    <servlet-class>com.springbook.view.controller.DispatcherServlet2</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>action</servlet-name>
     <url-pattern>*.do</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
-  	<welcome-file>index.jsp</welcome-file>
+  	<welcome-file>login.jsp</welcome-file>
   </welcome-file-list>
 </web-app>

@@ -3,7 +3,7 @@
 <%@page import="com.springbook.biz.impl.BoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
-	<a href="controller\logout_proc.jsp">Log-out</a><p>
+	<a href="logout.do">Log-out</a><p>
 <%
 	List<BoardVO> boardList = (List)session.getAttribute("boardList"); //기본적으로 Object 타입으로 리턴됨
 %>
@@ -29,7 +29,7 @@ form {
 	%>
 	<tr>
 		<td><%=board.getSeq()%></td>
-		<td><a href="getBoard.jsp?seq=<%=board.getSeq()%>"><%=board.getTitle()%></td>
+		<td><a href="getBoard.do?seq=<%=board.getSeq()%>"><%=board.getTitle()%></td>
 		<td><%=board.getWriter()%></td>
 		<td><%= board.getRegDate() %></td>
 		<td><%= board.getCnt() %></td>
